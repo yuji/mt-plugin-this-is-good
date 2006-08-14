@@ -1,4 +1,4 @@
-# VOX like quick comment for your blog
+# VOX flavor to your MovableType...
 #
 # Author: Yuji Takayama (http://code.sixapart.com)
 # Released under the Artistic License
@@ -33,6 +33,7 @@ my $plugin = new MT::Plugin::ThisIsGood({
 MT->add_plugin($plugin);
 MT::Template::Context->add_tag(ThisIsGood => \&_hdlr_this_is_good);
 MT->add_callback('CommentThrottleFilter', 1, $plugin, \&throttle_filter);
+MT->add_callback('MT::App::CMS::AppTemplateParam.edit_template', 9, $plugin, \&hdlr_tag_inserts); 
 
 sub _hdlr_this_is_good {
     my ($ctx, $args, $cond) = @_;
@@ -66,5 +67,17 @@ sub throttle_filter {
 
     $q->param(-name=>'text', -value=>'<strong>['.$quick.']</strong>'.$original) if $quick;
 1;
+
+sub hdlr_tag_inserts { 
+    my ($eh, $app, $param, $tmpl) = @_;
+
+    $param->{tag_insert_loop} ||= [];
+
+    push @{$param->{tag_insert_loop}}, {
+        id => 'ThisIsGood_0',
+        label => $plugin->translate('Insert This is good'),
+        content => qq{<\$MTThisIsGood\$>}
+    };
+}
 }
 1;
