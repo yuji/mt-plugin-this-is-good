@@ -18,7 +18,7 @@ use MT::I18N qw( encode_text );
 our $VERSION = '0.03';
 
 my $plugin = new MT::Plugin::ThisIsGood({
-    name            => "This is Good!!",
+    name            => "This is good for MT",
     version         => $VERSION,
     description     => "<MT_TRANS phrase=\"A Plugin for quick comment form\">",
     author_name     => "Yuji Takayama",
