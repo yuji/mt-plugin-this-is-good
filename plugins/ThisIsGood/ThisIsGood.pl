@@ -15,7 +15,7 @@ use MT::Plugin;
 use MT::Template::Context;
 use MT::I18N qw( encode_text );
 
-our $VERSION = '0.03';
+our $VERSION = '0.031';
 
 my $plugin = new MT::Plugin::ThisIsGood({
     name            => "This is good for MT",
@@ -66,7 +66,7 @@ sub throttle_filter {
     my $original = $q->param('text');
 
     $q->param(-name=>'text', -value=>'<strong>['.$quick.']</strong>'.$original) if $quick;
-1;
+}
 
 sub hdlr_tag_inserts { 
     my ($eh, $app, $param, $tmpl) = @_;
@@ -79,5 +79,5 @@ sub hdlr_tag_inserts {
         content => qq{<\$MTThisIsGood\$>}
     };
 }
-}
+
 1;
